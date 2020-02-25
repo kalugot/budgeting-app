@@ -1,0 +1,22 @@
+.Record{
+    text-align: center;
+}
+
+.Options{
+    display: inline-block;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.ShowOptions{
+    padding-top: 10px;
+}
+
+.ShowOptions .list-group-item:nth-child(odd){
+    background-color: #c3e6cb;
+}
+
+.ShowOptions .list-group-item:nth-child(even){
+    background-color: #c6c8ca;
+}
+
