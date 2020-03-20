@@ -6,7 +6,7 @@ class Record extends Component{
 
     render(){
 
-        let options = ["Income", "Payment"];
+        let options = ["Income", "Expense"];
         let showOptions = null;
 
         showOptions = (

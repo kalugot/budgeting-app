@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import axios from "../../axios-record";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-// import { getDate, getMonth, getYear } from "date-fns";
+import AlertWarning from "../../UI/AlertWarning/AlertWarning";
 import DateField from "../../FormElements/DateField";
 import Input from "../../FormElements/Input";
 import Select from "../../FormElements/Select";
-import ButtonSuccess from "../../FormElements/ButtonSuccess";
+import ButtonPrimary from "../../FormElements/ButtonPrimary";
 import Spinner from "../../UI/Spinner/Spinner";
-import AlertWarning from "../../UI/AlertWarning/AlertWarning";
-import "./Income.css";
+import "./Expense.css";
 
-class Income extends Component {
+class Expense extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +19,12 @@ class Income extends Component {
         content: "",
         amount: ""
       },
-      incomeLoading: false,
-      showIncomeTransactions: false,
-      incomeDateError: false,
-      incomeCategoryError: false,
-      incomeContentError: false,
-      incomeAmountError: false
+      expenseLoading: false,
+      showExpenseTransactions: false,
+      expenseDateError: false,
+      expenseCategoryError: false,
+      expenseContentError: false,
+      expenseAmountError: false
     };
   }
 
@@ -38,7 +37,7 @@ class Income extends Component {
     });
   };
 
-  handleIncomeForm = event => {
+  handleExpenseForm = event => {
     const name = event.target.name;
     const value = event.target.value;
     this.setState({
@@ -49,16 +48,16 @@ class Income extends Component {
     });
   };
 
-  validateIncomeForm = () => {
+  validateExpenseForm = () => {
     let formIsValid = true;
-    let incomeDateError = "";
-    let incomeCategoryError = "";
-    let incomeContentError = "";
-    let incomeAmountError = "";
+    let expenseDateError = "";
+    let expenseCategoryError = "";
+    let expenseContentError = "";
+    let expenseAmountError = "";
 
     if (this.state.formData.date === "" || this.state.formData.date === null) {
       formIsValid = false;
-      incomeDateError = "Date cannot be empty!!!";
+      expenseDateError = "Date cannot be empty!!!";
     }
 
     if (
@@ -66,7 +65,7 @@ class Income extends Component {
       this.state.formData.category === null
     ) {
       formIsValid = false;
-      incomeCategoryError = "Category cannot be empty!!!";
+      expenseCategoryError = "Category cannot be empty!!!";
     }
 
     if (
@@ -74,7 +73,7 @@ class Income extends Component {
       this.state.formData.content === null
     ) {
       formIsValid = false;
-      incomeContentError = "Content cannot be empty!!!";
+      expenseContentError = "Content cannot be empty!!!";
     }
 
     if (
@@ -83,50 +82,63 @@ class Income extends Component {
       isNaN(this.state.formData.amount)
     ) {
       formIsValid = false;
-      incomeAmountError = "Amount should be a number and cannot be empty!!!";
+      expenseAmountError = "Amount should be a number and cannot be empty!!!";
     }
 
     this.setState({
-      incomeDateError: incomeDateError,
-      incomeCategoryError: incomeCategoryError,
-      incomeContentError: incomeContentError,
-      incomeAmountError: incomeAmountError
+      expenseDateError: expenseDateError,
+      expenseCategoryError: expenseCategoryError,
+      expenseContentError: expenseContentError,
+      expenseAmountError: expenseAmountError
     });
 
     return formIsValid;
   };
 
-  handleIncomeFormSubmit = event => {
+  handleExpenseFormSubmit = event => {
     event.preventDefault();
 
-    if (this.validateIncomeForm()) {
+    if (this.validateExpenseForm()) {
 
       const transaction = {
         emailId: this.props.emailId,
-        transactionType: "income",
+        transactionType: "expense",
         formData: this.state.formData
       };
+
+      this.setState({ expenseLoading: true });
 
       axios
         .post("/transaction.json", transaction)
         .then(response => {
-          console.log(response);
-          this.setState({ incomeLoading: false, showIncomeTransactions: true });
+          this.setState({
+            expenseLoading: false,
+            showExpenseTransactions: true
+          });
         })
         .catch(error => {
-          this.setState({ incomeLoading: false });
+          this.setState({ expenseLoading: false });
         });
     }
   };
 
   render() {
-    const incomeCategoryOptions = ["Salary", "Allowance", "Bonus", "Other"];
+    const expenseCategoryOptions = [
+      "Groceries",
+      "Food",
+      "HouseHold",
+      "Transportation",
+      "Apparel",
+      "Health",
+      "Education",
+      "Other"
+    ];
 
-    let incomeFormDisplay = (
-      <div className="IncomeForm">
-        <h4>Record an Income</h4>
+    let expenseFormDisplay = (
+      <div className="ExpenseForm">
+        <h4>Record an Expense</h4>
         <div className="container">
-          <form onSubmit={this.handleIncomeFormSubmit}>
+          <form onSubmit={this.handleExpenseFormSubmit}>
             <div className="dateWrapper">
               <DateField
                 title="Date"
@@ -136,19 +148,19 @@ class Income extends Component {
                 dateFormat="yyyy/MM/dd"
               />
             </div>
-            {this.state.incomeDateError ? (
-              <AlertWarning alertWarning={this.state.incomeDateError} />
+            {this.state.expenseDateError ? (
+              <AlertWarning alertWarning={this.state.expenseDateError} />
             ) : null}
             <Select
               title="Category"
               name="category"
               value={this.state.formData.category || ""}
               placeholder="Enter Category"
-              options={incomeCategoryOptions}
-              handleChange={this.handleIncomeForm}
+              options={expenseCategoryOptions}
+              handleChange={this.handleExpenseForm}
             />
-            {this.state.incomeCategoryError ? (
-              <AlertWarning alertWarning={this.state.incomeCategoryError} />
+            {this.state.expenseCategoryError ? (
+              <AlertWarning alertWarning={this.state.expenseCategoryError} />
             ) : null}
             <Input
               title="Content"
@@ -157,10 +169,10 @@ class Income extends Component {
               value={this.state.formData.content || ""}
               type="input"
               placeholder="Enter Content"
-              handleChange={this.handleIncomeForm}
+              handleChange={this.handleExpenseForm}
             />
-            {this.state.incomeContentError ? (
-              <AlertWarning alertWarning={this.state.incomeContentError} />
+            {this.state.expenseContentError ? (
+              <AlertWarning alertWarning={this.state.expenseContentError} />
             ) : null}
             <Input
               title="Amount"
@@ -169,13 +181,13 @@ class Income extends Component {
               value={this.state.formData.amount || ""}
               type="input"
               placeholder="Enter Amount"
-              handleChange={this.handleIncomeForm}
+              handleChange={this.handleExpenseForm}
             />
-            {this.state.incomeAmountError ? (
-              <AlertWarning alertWarning={this.state.incomeAmountError} />
+            {this.state.expenseAmountError ? (
+              <AlertWarning alertWarning={this.state.expenseAmountError} />
             ) : null}
-            <ButtonSuccess
-              title="Submit Income"
+            <ButtonPrimary
+              title="Submit Expense"
               style={{
                 display: "block",
                 margin: "0 auto",
@@ -188,17 +200,17 @@ class Income extends Component {
       </div>
     );
 
-    if (this.state.incomeLoading) {
-      incomeFormDisplay = <Spinner />;
+    if (this.state.expenseLoading) {
+      expenseFormDisplay = <Spinner />;
     }
 
     return (
       <div className="Home">
-        {incomeFormDisplay}
-        {this.state.showIncomeTransactions && <Redirect to="/transactions" />}
+        {expenseFormDisplay}
+        {this.state.showExpenseTransactions && <Redirect to="/transactions" />}
       </div>
     );
   }
 }
 
-export default Income;
+export default Expense;

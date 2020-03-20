@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './FormElements.css';
+// import './FormElements.css';
 import DatePicker from 'react-datepicker';
 // import moment from 'moment';
 // import InputMoment from 'input-moment';
@@ -48,6 +48,8 @@ class FormElements extends Component {
               type="input"
               className="form-control"
               id={this.props.formElementId}
+              value={this.props.inputValue}
+              onChange={this.props.formInputChanged}
             />
           </div>
         );
@@ -60,6 +62,8 @@ class FormElements extends Component {
               type="email"
               className="form-control"
               id={this.props.formElementId}
+              value={this.props.emailValue}
+              onChange={this.props.formEmailChanged}
             />
           </div>
         );
@@ -72,6 +76,8 @@ class FormElements extends Component {
               type="textarea"
               className="form-control"
               id={this.props.formElementId}
+              value={this.props.textareaValue}
+              onChange={this.props.formTextareaChanged}
             />
           </div>
         );
@@ -106,9 +112,14 @@ class FormElements extends Component {
         formElement = (
             <div>
                 <label>{this.props.label}</label>
-                <select type="select" class="form-control" id={this.props.formElementId}>
+                <select 
+                  type="select" 
+                  className="form-control" 
+                  id={this.props.formElementId} 
+                  value={this.props.selectValue}
+                  onChange={this.props.formSelectChanged}>
                     {this.props.options.map((result) => (
-                        <option value={result}>
+                        <option value={result} key={result}>
                             {result}
                         </option>
                     ))}
@@ -119,14 +130,14 @@ class FormElements extends Component {
     case "buttonSuccess":
         formElement = (
             <div className="ButtonSuccess">
-                <button type="button" class="btn btn-success">Submit</button>
+                <button type="button" className="btn btn-success">Submit</button>
             </div>
         );
         break;
     case "buttonPrimary":
         formElement = (
             <div className="ButtonPrimary">
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" className="btn btn-primary">Submit</button>
             </div>
         );
         break;
