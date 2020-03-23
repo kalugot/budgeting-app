@@ -1,7 +1,7 @@
-# Budgeting App Frontend
+# Budgeting App
 
-Started February 12, 2020
+# React Application with Firebase Integration
 
-## Let's Start
+## Version 1.1
 
-React Front End Application
+@Copyright Ram Sudeep Kalugotla
