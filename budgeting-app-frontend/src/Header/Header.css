@@ -1,7 +1,8 @@
-.navbar{
-    /* height: 80px; */
-}
-
 .bg-light{
     background-color: cadetblue !important;
+}
+
+.Header{
+    padding-bottom: 30px;
+    overflow: hidden;
 }

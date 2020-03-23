@@ -6,10 +6,10 @@ const header = props => {
   return (
     <div className="Header">
       <nav
-        className="navbar navbar-expand-xl navbar-expand-lg navbar-light bg-light"
+        className="navbar navbar-expand-xl navbar-expand-lg fixed-top navbar-light bg-light"
         style={{ backgroundColor: "e3f2fd" }}
       >
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/home">
           Budgeting App
         </Link>
         <button
@@ -27,7 +27,7 @@ const header = props => {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link" to="/home">
                 Home
               </Link>
             </li>
@@ -41,6 +41,14 @@ const header = props => {
                 Transactions
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">
+                Sign In
+              </Link>
+            </li>
+              <button style={{ border: "0px", backgroundColor: "cadetblue" }} onClick={props.logout}>
+                Logout
+              </button>
           </ul>
         </div>
       </nav>

@@ -5,8 +5,6 @@ import { getDate, getMonth, getYear, parseISO } from "date-fns";
 const PieChart = props => {
   let keys = Object.keys(props.chartData);
 
-  //   console.log(props.chartData);
-
   let incomeGroups = keys.reduce((localGroup, localItem) => {
     if (
       props.currentMonthFilter ===
@@ -23,8 +21,6 @@ const PieChart = props => {
     }
     return localGroup;
   }, {});
-
-  console.log(incomeGroups);
 
   let incomePieChart = Object.keys(incomeGroups).map(eachItem => {
     let sumOfItems = 0;
@@ -52,8 +48,6 @@ const PieChart = props => {
     }
     return localGroup;
   }, {});
-
-  console.log(expenseGroups);
 
   let expensePieChart = Object.keys(expenseGroups).map(eachItem => {
     let sumOfItems = 0;

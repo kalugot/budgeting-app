@@ -4,7 +4,6 @@ import MiniListGroup from '../MiniListGroup/MiniListGroup'
 const ListGroup = props => {
 
   let listGroup = props.miniList.map((eachLocalItem) => {
-    console.log(eachLocalItem);
     return(
       <MiniListGroup
         key={eachLocalItem} 

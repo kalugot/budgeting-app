@@ -1,38 +1,35 @@
 import React, { Component } from "react";
 // import './FormElements.css';
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 // import moment from 'moment';
 // import InputMoment from 'input-moment';
 import "react-datepicker/dist/react-datepicker.css";
 
 class FormElements extends Component {
+  state = {
+    date: new Date()
+  };
 
-    state = {
-        date: new Date()
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: new Date()
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
 
-    constructor (props) {
-        super(props)
-        this.state = {
-          startDate: new Date()
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-      }
-    
-      handleChange(date) {
-        this.setState({
-          startDate: date
-        })
-      }
-    
-      onFormSubmit(e) {
-        e.preventDefault();
-      }
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
 
-      handleSave = () => {
-        console.log('saved', this.state.m.format('llll'));
-      };
+  onFormSubmit(e) {
+    e.preventDefault();
+  }
+
+  handleSave = () => {};
 
   onChange = date => this.setState({ date });
 
@@ -89,13 +86,14 @@ class FormElements extends Component {
             <DatePicker
               type="input"
               className="form-control DatePicker"
-              selected={ this.state.startDate }
-              onChange={ this.handleChange }
+              selected={this.state.startDate}
+              onChange={this.handleChange}
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={5}
               timeCaption="Set Time"
-              dateFormat="yyyy/MM/dd hh:mm aa" />
+              dateFormat="yyyy/MM/dd hh:mm aa"
+            />
             {/* <InputMoment
               moment={this.state.moment}
               onChange={this.handleChange}
@@ -108,37 +106,42 @@ class FormElements extends Component {
           </div>
         );
         break;
-    case "select":
+      case "select":
         formElement = (
-            <div>
-                <label>{this.props.label}</label>
-                <select 
-                  type="select" 
-                  className="form-control" 
-                  id={this.props.formElementId} 
-                  value={this.props.selectValue}
-                  onChange={this.props.formSelectChanged}>
-                    {this.props.options.map((result) => (
-                        <option value={result} key={result}>
-                            {result}
-                        </option>
-                    ))}
-                </select>
-            </div>
+          <div>
+            <label>{this.props.label}</label>
+            <select
+              type="select"
+              className="form-control"
+              id={this.props.formElementId}
+              value={this.props.selectValue}
+              onChange={this.props.formSelectChanged}
+            >
+              {this.props.options.map(result => (
+                <option value={result} key={result}>
+                  {result}
+                </option>
+              ))}
+            </select>
+          </div>
         );
         break;
-    case "buttonSuccess":
+      case "buttonSuccess":
         formElement = (
-            <div className="ButtonSuccess">
-                <button type="button" className="btn btn-success">Submit</button>
-            </div>
+          <div className="ButtonSuccess">
+            <button type="button" className="btn btn-success">
+              Submit
+            </button>
+          </div>
         );
         break;
-    case "buttonPrimary":
+      case "buttonPrimary":
         formElement = (
-            <div className="ButtonPrimary">
-                <button type="button" className="btn btn-primary">Submit</button>
-            </div>
+          <div className="ButtonPrimary">
+            <button type="button" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
         );
         break;
       default:
@@ -146,11 +149,7 @@ class FormElements extends Component {
         break;
     }
 
-    return (
-        <div className="form-group">
-            {formElement}
-        </div>
-    );
+    return <div className="form-group">{formElement}</div>;
   }
 }
 

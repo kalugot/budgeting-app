@@ -1,0 +1,19 @@
+.Login{
+    width: 50%;
+    margin: 0 auto;
+    float: none;
+    margin-top: 50px;
+}
+
+.Home .Login h4{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 576px){
+    
+    .Login{
+        width: 90%;
+    }
+    
+}

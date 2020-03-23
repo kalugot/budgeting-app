@@ -102,15 +102,14 @@ class Income extends Component {
     if (this.validateIncomeForm()) {
 
       const transaction = {
-        emailId: this.props.emailId,
+        email: this.props.email,
         transactionType: "income",
         formData: this.state.formData
       };
 
       axios
-        .post("/transaction.json", transaction)
+        .post("/transaction-"+String(this.props.email).toLowerCase().replace(".",",")+".json", transaction)
         .then(response => {
-          console.log(response);
           this.setState({ incomeLoading: false, showIncomeTransactions: true });
         })
         .catch(error => {

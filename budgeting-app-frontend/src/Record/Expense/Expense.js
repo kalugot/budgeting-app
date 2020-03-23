@@ -101,7 +101,7 @@ class Expense extends Component {
     if (this.validateExpenseForm()) {
 
       const transaction = {
-        emailId: this.props.emailId,
+        email: this.props.email,
         transactionType: "expense",
         formData: this.state.formData
       };
@@ -109,7 +109,7 @@ class Expense extends Component {
       this.setState({ expenseLoading: true });
 
       axios
-        .post("/transaction.json", transaction)
+        .post("/transaction-"+String(this.props.email).toLowerCase().replace(".",",")+".json", transaction)
         .then(response => {
           this.setState({
             expenseLoading: false,

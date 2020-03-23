@@ -51,7 +51,7 @@ class Home extends Component {
     });
 
     axios
-      .get("/transaction.json")
+      .get("/transaction-"+String(this.props.email).toLowerCase().replace(".",",")+".json")
       .then(response => {
         this.setState({
           currentTransactions: response.data
