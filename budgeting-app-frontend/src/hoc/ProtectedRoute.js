@@ -1,10 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Error404 from "../404/Error404";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   let localProps = { ...rest };
-//   console.log(localProps);
   let routeComponent = null;
 
   if (localProps.isAuthenticated) {

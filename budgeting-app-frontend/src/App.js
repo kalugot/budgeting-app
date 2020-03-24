@@ -82,24 +82,60 @@ class App extends Component {
       fire
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(u => {
-          this.setState({ isAuthenticated: true, defaultLoginPath: "/home" });
+        .then(user => {
+          this.setState({
+            isAuthenticated: true,
+            user: user,
+            defaultLoginPath: "/home",
+            emailError: "",
+            passwordError: ""
+          });
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          if (error.code === "auth/user-not-found") {
+            this.setState({
+              emailError:
+                "User Not Found, please enter credentials and click Sign Up"
+            });
+          } else if (error.code === "auth/wrong-password") {
+            this.setState({
+              passwordError: "Password is Invalid, please try again"
+            });
+          } else if(error.code === "auth/too-many-requests"){
+            this.setState({emailError: "Too many wrong attempts, please try after sometime"});
+          }else {
+            this.setState({
+              emailError: "Error occured, please try after sometime"
+            });
+          }
+        });
     }
   };
 
   signUp = event => {
     event.preventDefault();
+    this.setState({ emailError: "", passwordError: "" });
     if (this.validateLoginForm()) {
       fire
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(u => {
-          this.setState({ isAuthenticated: true, defaultLoginPath: "/home" });
+        .then(user => {
+          this.setState({
+            isAuthenticated: true,
+            defaultLoginPath: "/home",
+            user: user,
+            emailError: "",
+            passwordError: ""
+          });
           this.props.history.push("/home");
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          if(error.code === "auth/email-already-in-use"){
+            this.setState({emailError: "Email already registered, please try logging in"});
+          }else{
+            this.setState({emailError: "Error occured, please try after sometime, thanks"});
+          }
+        });
     }
   };
 
@@ -120,9 +156,9 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header logout={this.logout}/>
+          <Header logout={this.logout} disabled={!this.state.isAuthenticated} />
           <Route
-            path="/login"
+            path="/"
             exact
             render={() => (
               <Login
@@ -139,7 +175,7 @@ class App extends Component {
           {this.state.defaultLoginPath ? (
             <Redirect to={this.state.defaultLoginPath} />
           ) : (
-            <Redirect to="/login" />
+            <Redirect to={this.state.defaultLoginPath} />
           )}
           <ProtectedRoute
             path="/home"

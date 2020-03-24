@@ -51,7 +51,13 @@ class Home extends Component {
     });
 
     axios
-      .get("/transaction-"+String(this.props.email).toLowerCase().replace(".",",")+".json")
+      .get(
+        "/transaction-" +
+          String(this.props.email)
+            .toLowerCase()
+            .replace(".", ",") +
+          ".json"
+      )
       .then(response => {
         this.setState({
           currentTransactions: response.data
@@ -76,7 +82,7 @@ class Home extends Component {
       [name]: lowerMonthOptions.indexOf(value.toLowerCase())
     });
     this.setState({
-        pieChartLoading: false
+      pieChartLoading: false
     });
   };
 
@@ -89,14 +95,18 @@ class Home extends Component {
       [name]: value
     });
     this.setState({
-        pieChartLoading: false
+      pieChartLoading: false
     });
   };
   render() {
     let pieChartDisplay = false;
 
     if (this.state.currentTransactions == null) {
-      pieChartDisplay = <Spinner />;
+      pieChartDisplay = (
+        <div style={{ textAlign: "center" }}>
+          <p>No Transactions Available For Selected Time Period</p>
+        </div>
+      );
     } else {
       if (this.state.pieChartLoading == true) {
         pieChartDisplay = <Spinner />;

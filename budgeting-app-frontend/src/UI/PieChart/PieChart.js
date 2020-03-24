@@ -63,48 +63,60 @@ const PieChart = props => {
     <div className="PieChart">
       <div className="row">
         <div className="col-xl-12 col-lg-12 col-md-12 col-xs-12">
-          {incomePieChart ? <Pie
-            data={{
-              labels: Object.keys(incomeGroups),
-              datasets: [
-                {
-                  data: incomePieChart,
-                  backgroundColor: [
-                    "red",
-                    "blue",
-                    "green",
-                    "yellow",
-                    "orange",
-                    "pink",
-                    "black",
-                    "purple"
-                  ]
-                }
-              ]
-            }}
-          /> : <p>No Data</p>}
+          {Object.keys(incomeGroups).length > 0 ? (
+            <Pie
+              data={{
+                labels: Object.keys(incomeGroups),
+                datasets: [
+                  {
+                    data: incomePieChart,
+                    backgroundColor: [
+                      "green",
+                      "blue",
+                      "yellow",
+                      "orange",
+                      "pink",
+                      "black",
+                      "purple",
+                      "red"
+                    ]
+                  }
+                ]
+              }}
+            />
+          ) : (
+            <div style={{ textAlign: "center", paddingTop: "20px" }}>
+              <p>No Income Entries Available For Selected Time Period</p>
+            </div>
+          )}
         </div>
         <div className="col-xl-12 col-lg-12 col-md-12 col-xs-12">
-          {expensePieChart ? <Pie
-            data={{
-              labels: Object.keys(expenseGroups),
-              datasets: [
-                {
-                  data: expensePieChart,
-                  backgroundColor: [
-                    "red",
-                    "blue",
-                    "green",
-                    "yellow",
-                    "orange",
-                    "pink",
-                    "black",
-                    "purple"
-                  ]
-                }
-              ]
-            }}
-          /> : <p>No Data</p>}
+          {Object.keys(expenseGroups).length > 0 ? (
+            <Pie
+              data={{
+                labels: Object.keys(expenseGroups),
+                datasets: [
+                  {
+                    data: expensePieChart,
+                    backgroundColor: [
+                      "red",
+                      "blue",
+                      "yellow",
+                      "orange",
+                      "pink",
+                      "black",
+                      "purple",
+                      "green"
+                    ]
+                  }
+                ]
+              }}
+            />
+          ) : (
+            <div style={{ textAlign: "center", paddingTop: "20px" }}>
+              <p>No Expense Entries Available For Selected Time Period</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

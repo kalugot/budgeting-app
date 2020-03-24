@@ -33,7 +33,8 @@ class Transactions extends Component {
         "October",
         "November",
         "December"
-      ]
+      ],
+      noTransactions: false
     };
   }
 
@@ -54,14 +55,19 @@ class Transactions extends Component {
     });
 
     axios
-      .get("/transaction-"+String(this.props.email).toLowerCase().replace(".",",")+".json")
+      .get(
+        "/transaction-" +
+          String(this.props.email)
+            .toLowerCase()
+            .replace(".", ",") +
+          ".json"
+      )
       .then(response => {
         this.setState({
           currentTransactions: response.data
         });
       })
       .catch(error => {
-        // this.setState({transactionsLoading: false});
         console.log(error);
       });
   }
@@ -69,7 +75,6 @@ class Transactions extends Component {
   handleMonthFilter = event => {
     const name = event.target.name;
     const value = event.target.value;
-    const currentTransactions = this.state.currentTransactions;
     let lowerMonthOptions = this.state.monthOptions;
     lowerMonthOptions = lowerMonthOptions.map(eachItem => {
       return eachItem.toLowerCase();
@@ -101,7 +106,11 @@ class Transactions extends Component {
     let transactionFormDisplay = false;
 
     if (this.state.currentTransactions == null) {
-      transactionFormDisplay = <Spinner />;
+      transactionFormDisplay = (
+        <div style={{ textAlign: "center" }}>
+          <p>No Transactions Available For Selected Time Period</p>
+        </div>
+      );
     } else {
       if (this.state.transactionsLoading == true) {
         transactionFormDisplay = <Spinner />;

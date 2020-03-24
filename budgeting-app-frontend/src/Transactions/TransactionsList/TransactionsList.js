@@ -37,7 +37,7 @@ let TransactionsList = props => {
 
   return (
     <div className="TransactionsList col container-fluid">
-      {transactionsList}
+      {transactionsList.length > 0 ? transactionsList : <div style={{textAlign: "center"}}><p>No Transactions Available for Selected Time Period</p></div>}
     </div>
   );
 };

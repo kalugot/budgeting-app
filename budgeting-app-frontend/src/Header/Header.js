@@ -9,7 +9,7 @@ const header = props => {
         className="navbar navbar-expand-xl navbar-expand-lg fixed-top navbar-light bg-light"
         style={{ backgroundColor: "e3f2fd" }}
       >
-        <Link className="navbar-brand" to="/home">
+        <Link className="navbar-brand" to={!props.disabled ? "/home" : "/"}>
           Budgeting App
         </Link>
         <button
@@ -27,28 +27,46 @@ const header = props => {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to="/home">
+              <Link
+                className={"nav-link " + (props.disabled ? "disabled" : null)}
+                to="/home"
+              >
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/record">
+              <Link
+                className={"nav-link " + (props.disabled ? "disabled" : null)}
+                to="/record"
+              >
                 Record
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/transactions">
+              <Link
+                className={"nav-link " + (props.disabled ? "disabled" : null)}
+                to="/transactions"
+              >
                 Transactions
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/login">
+              <Link
+                className={"nav-link " + (!props.disabled ? "disabled" : null)}
+                to="/"
+              >
                 Sign In
               </Link>
             </li>
-              <button style={{ border: "0px", backgroundColor: "cadetblue" }} onClick={props.logout}>
+            <li className="btn mr-auto" style={{padding: "6px 0px", border: "0px"}}>
+              <button
+                style={{ border: "0px", paddingLeft: "0px", paddingTop: "2px", backgroundColor: "cadetblue" }}
+                onClick={props.logout}
+                disabled={props.disabled ? "disabled" : null}
+              >
                 Logout
               </button>
+            </li>
           </ul>
         </div>
       </nav>
