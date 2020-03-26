@@ -18,7 +18,7 @@ const ListGroup = props => {
     <div className="list-group">
       <div className="list-group-item">
         <div className="row">
-          <div className="col-4">
+          <div className="col-xl-4 col-lg-4 col-md-12 col-xs-12">
             <div className="row">
               <div className="col" style={{textAlign: "center"}}>
                 <h3>{props.date}</h3>
@@ -30,7 +30,7 @@ const ListGroup = props => {
               </div>
             </div>
           </div>
-          <div className="col-8">
+          <div className="col-xl-8 col-lg-8 col-md-12 col-xs-12">
             <div className="row">
               <div className="col" style={{textAlign: "center"}}>
                 {listGroup}

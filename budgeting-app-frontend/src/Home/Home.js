@@ -113,18 +113,20 @@ class Home extends Component {
       } else {
         pieChartDisplay = (
           <div className="row HomeChartDisplay">
-            <PieChart
-              chartData={this.state.currentTransactions}
-              monthOptions={this.state.monthOptions}
-              currentMonthFilter={
-                this.state.currentTransactionsMonth ||
-                this.state.newTransactionsMonth
-              }
-              currentYearFilter={
-                this.state.currentTransactionsYear ||
-                this.state.newTransactionsYear
-              }
-            />
+            <div className="col-xl-12 col-lg-12 col-md-12 col-xs-12">
+              <PieChart
+                chartData={this.state.currentTransactions}
+                monthOptions={this.state.monthOptions}
+                currentMonthFilter={
+                  this.state.currentTransactionsMonth ||
+                  this.state.newTransactionsMonth
+                }
+                currentYearFilter={
+                  this.state.currentTransactionsYear ||
+                  this.state.newTransactionsYear
+                }
+              />
+            </div>
           </div>
         );
       }
@@ -163,9 +165,7 @@ class Home extends Component {
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="col">{pieChartDisplay}</div>
-            </div>
+            {pieChartDisplay}
           </div>
         </div>
       </div>

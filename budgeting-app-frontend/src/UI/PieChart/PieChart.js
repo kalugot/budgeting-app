@@ -32,6 +32,8 @@ const PieChart = props => {
     return sumOfItems;
   });
 
+  let incomeTotal = incomePieChart.reduce((a, b) => a + b, 0);
+
   let expenseGroups = keys.reduce((localGroup, localItem) => {
     if (
       props.currentMonthFilter ===
@@ -59,12 +61,21 @@ const PieChart = props => {
     return sumOfItems;
   });
 
+  let expenseTotal = expensePieChart.reduce((a, b) => a + b, 0);
+
   return (
     <div className="PieChart">
-      <div className="row">
+      <div className="row" style={{textAlign: "center"}}>
+        <div className="col-xl-6 col-lg-6 col-md-6 col-xs-6">
+          <p>Income: {incomeTotal}</p>
+        </div>
+        <div className="col-xl-6 col-lg-6 col-md-6 col-xs-6">
+        <p>Expense: {expenseTotal}</p>
+        </div>
         <div className="col-xl-12 col-lg-12 col-md-12 col-xs-12">
           {Object.keys(incomeGroups).length > 0 ? (
             <Pie
+              style={{ height: "240px", width: "240px" }}
               data={{
                 labels: Object.keys(incomeGroups),
                 datasets: [

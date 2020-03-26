@@ -5,9 +5,9 @@ const MiniListGroup = (props) => {
         <div className="list-group list-group-flush">
             <div className="list-group-item">
                 <div className="row">
-                    <div className="col-4">{props.category}</div>
-                    <div className="col-4">{props.content}</div>
-                    <div className="col-4">{props.amount}</div>
+                    <div className="col-xl-4 col-lg-4 col-md-6 col-xs-6">{props.category}</div>
+                    <div className="col-xl-4 col-lg-4 col-md-6 col-xs-6">{props.content}</div>
+                    <div className="col-xl-4 col-lg-4 col-md-12 col-xs-12">{props.amount}</div>
                 </div>
             </div>
         </div>
