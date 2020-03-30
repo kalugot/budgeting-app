@@ -7,8 +7,6 @@ import ProtectedRoute from "./hoc/ProtectedRoute";
 import "firebase/auth";
 import "firebase/analytics";
 import fire from "./firebaseConfigFile";
-import Spinner from "./UI/Spinner/Spinner";
-import Error404 from "./404/Error404";
 import "./App.css";
 import Home from "./Home/Home";
 import Header from "./Header/Header";
@@ -29,7 +27,8 @@ class App extends Component {
       emailError: "",
       passwordError: "",
       user: {},
-      defaultLoginPath: ""
+      defaultLoginPath: "",
+      navbarCollapse: false
     };
   }
 
@@ -58,8 +57,6 @@ class App extends Component {
 
   validateLoginForm = () => {
     let loginValid = true;
-    let emailError = "";
-    let passwordError = "";
     let validationEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!validationEmail.test(String(this.state.email).toLowerCase())) {
@@ -101,9 +98,11 @@ class App extends Component {
             this.setState({
               passwordError: "Password is Invalid, please try again"
             });
-          } else if(error.code === "auth/too-many-requests"){
-            this.setState({emailError: "Too many wrong attempts, please try after sometime"});
-          }else {
+          } else if (error.code === "auth/too-many-requests") {
+            this.setState({
+              emailError: "Too many wrong attempts, please try after sometime"
+            });
+          } else {
             this.setState({
               emailError: "Error occured, please try after sometime"
             });
@@ -130,10 +129,14 @@ class App extends Component {
           this.props.history.push("/home");
         })
         .catch(error => {
-          if(error.code === "auth/email-already-in-use"){
-            this.setState({emailError: "Email already registered, please try logging in"});
-          }else{
-            this.setState({emailError: "Error occured, please try after sometime, thanks"});
+          if (error.code === "auth/email-already-in-use") {
+            this.setState({
+              emailError: "Email already registered, please try logging in"
+            });
+          } else {
+            this.setState({
+              emailError: "Error occured, please try after sometime, thanks"
+            });
           }
         });
     }
@@ -152,11 +155,20 @@ class App extends Component {
     fire.auth().signOut();
   };
 
+  toggleNavbar = () => {
+    this.setState({ navbarCollapse: !this.state.navbarCollapse });
+  };
+
   render() {
     return (
       <Router>
         <div className="App">
-          <Header logout={this.logout} disabled={!this.state.isAuthenticated} />
+          <Header
+            logout={this.logout}
+            disabled={!this.state.isAuthenticated}
+            toggleNavbar={this.state.navbarCollapse}
+            navbarToggleFunction={this.toggleNavbar}
+          />
           <Route
             path="/"
             exact

@@ -3,6 +3,7 @@ import { getYear, getMonth } from "date-fns";
 import axios from "../axios-record";
 import "firebase/database";
 import "firebase/auth";
+import fire from "../firebaseConfigFile";
 import Spinner from "../UI/Spinner/Spinner";
 import MonthFilter from "../UI/MonthFilter/MonthFilter";
 import YearFilter from "../UI/YearFilter/YearFilter";
@@ -38,7 +39,8 @@ class Transactions extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const token = await fire.auth().currentUser.getIdToken()
     let currentYear = new Date().getFullYear();
     let currentMonth = getMonth(new Date());
     const yearsRange = (start, stop, step) =>
@@ -60,7 +62,7 @@ class Transactions extends Component {
           String(this.props.email)
             .toLowerCase()
             .replace(".", ",") +
-          ".json"
+          ".json", {headers: {token}}
       )
       .then(response => {
         this.setState({

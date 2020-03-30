@@ -96,6 +96,7 @@ class Expense extends Component {
   };
 
   handleExpenseFormSubmit = event => {
+
     event.preventDefault();
 
     if (this.validateExpenseForm()) {

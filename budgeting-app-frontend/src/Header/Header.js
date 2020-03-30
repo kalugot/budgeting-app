@@ -3,6 +3,7 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 
 const header = props => {
+  let show = (props.toggleNavbar) ? "show" : "";
   return (
     <div className="Header">
       <nav
@@ -24,10 +25,11 @@ const header = props => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <div className={"collapse navbar-collapse "+ !show} id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             <li className="nav-item">
               <Link
+                onClick={props.navbarToggleFunction}
                 className={"nav-link " + (props.disabled ? "disabled" : null)}
                 to="/home"
               >
@@ -38,6 +40,7 @@ const header = props => {
               <Link
                 className={"nav-link " + (props.disabled ? "disabled" : null)}
                 to="/record"
+                onClick={props.navbarToggleFunction}
               >
                 Record
               </Link>
@@ -46,6 +49,7 @@ const header = props => {
               <Link
                 className={"nav-link " + (props.disabled ? "disabled" : null)}
                 to="/transactions"
+                onClick={props.navbarToggleFunction}
               >
                 Transactions
               </Link>
@@ -54,11 +58,12 @@ const header = props => {
               <Link
                 className={"nav-link " + (!props.disabled ? "disabled" : null)}
                 to="/"
+                onClick={props.navbarToggleFunction}
               >
                 Sign In
               </Link>
             </li>
-            <li className="btn mr-auto" style={{padding: "6px 0px", border: "0px"}}>
+            <li className="btn mr-auto" style={{padding: "6px 0px", border: "0px"}} onClick={props.navbarToggleFunction}>
               <button
                 style={{ border: "0px", paddingLeft: "0px", paddingTop: "2px", backgroundColor: "cadetblue" }}
                 onClick={props.logout}
